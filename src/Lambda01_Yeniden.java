@@ -13,6 +13,9 @@ public class Lambda01_Yeniden {
         printElFunctional2(sayi);
         printCiftElStructured(sayi);
         printCiftElFunctional(sayi);
+        printCiftElFunctional1(sayi);
+        ciftVeOtuzdorttenKucuk(sayi);
+        ciftVeOtuzdorttenBuyuk(sayi);
 
     }
 //task1 :Structered  ile list elemanlarini aralarinda bosluk birakacak sekilde print edin
@@ -84,6 +87,34 @@ public static boolean ciftBul(int b){  //seed method verilen int degerin cift ol
 }
 
     public static void printCiftElFunctional1(List<Integer> sayi) {
-        sayi.stream().filter(Lambda01_Yeniden::ciftBul).forEach(Lambda01_Yeniden::yazdir);
-        //sayi'yi getir,akisa sun,filtrele class ismi ve method ile ve herbirini yazdir class ismi ve method ile
-    }}
+        sayi.
+                stream().//list elemanlari islem akisina alindi
+                filter(Lambda01_Yeniden::ciftBul).//ciftBul method refere edilerek akistaki elemanlar filtrelendi
+                forEach(Lambda01_Yeniden::yazdir); //filtreden gelen elemanalr yazdir() methodu refer edilerek print edildi
+
+        System.out.println("\n  *******************");
+    }
+    //Task : functional Programming ile list elemanlarinin 34 den kucuk cift olanlarini ayni satirda aralarina bosluk birakarak print ediniz.
+    public static void ciftVeOtuzdorttenKucuk(List<Integer> sayi){
+        sayi.
+                stream().
+               // filter(t -> t % 2 == 0 && t < 34). // =>> istersek butun halinde yazariz
+               filter(Lambda01_Yeniden::ciftBul).//method call ettik
+                filter(t-> t<34).//expression yaptik
+                forEach(Lambda01_Yeniden::yazdir);
+                    //22 16 20
+        System.out.println("\n  *******************");
+}
+
+    //Task : functional Programming ile list elemanlarinin 34 den buyuk veya cift olanalrini ayni satirda aralarina bosluk birakarak print ediniz.
+    public static void ciftVeOtuzdorttenBuyuk(List<Integer> sayi){
+        sayi.
+                stream().
+                filter(t-> t%2==0 || t>34 ).  //ayni sarti ayni anda kontrol etmek icin bunu kullanmlaiyiz
+                //yukridaki ornekte iki ayri filtre kullandik cunku iki ayri sarti kontrol ettik
+                forEach(Lambda01_Yeniden::yazdir);  //34 22 16 35 20 63 65 44 66 64 81 38
+
+
+
+    }
+}
