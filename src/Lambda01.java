@@ -108,6 +108,7 @@ public class Lambda01 {
                         forEach(Lambda01::yazdir);//fitre den gelen elemanlar yazdır() method refer edilerek print edildi
             }
             //Task : functional Programming ile list elemanlarinin 34 den kucuk cift olanalrini ayni satirda aralarina bosluk birakarak print ediniz.
+
             public static void printCiftOtzKckFunctional(List<Integer> sayi) {
                 sayi.
                         stream().
