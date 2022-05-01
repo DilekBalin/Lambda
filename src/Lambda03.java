@@ -79,45 +79,56 @@ public class Lambda03 {
                 forEach(t -> System.out.print(t + " "));
     }
 
-    //Task: List'in elemanlarini karakterlerinden cift sayili kareelrini hesaplayan ve kareelrine tekrarsiz buyukten kucuge sirali print ediniz
+    //Task: List'in elemanlarin karakterlerinin cift sayili karelerini hesaplayan ve karelrini tekrarsiz buyukten kucuge sirali print ediniz
     public static void charKaresiCiftElSirala(List<String> menu) {
         menu.stream().
-                map(t -> t.length() * t.length()).
+                map(t -> t.length() * t.length()).//akistaki String elemanlari boyutlarinin karesine update edildi
                 filter(Lambda01::ciftBul).//cift elemanlar firtrelendi
-                distinct().//tekrarsiz yapildi
-                sorted(Comparator.reverseOrder()).//ters buyukten kucuge siralam yapildi
+                distinct().//tekrarsiz benzersiz yapildi
+                sorted(Comparator.reverseOrder()).//ters siralama  buyukten kucuge siralama yapildi
                 forEach(Lambda01::yazdir);//print edildi
 
-        //anyMatch() --> enaz bir eleman sarti saglarsa true aksi durumda false return eder
-        //allMatch() --> tum  elemanlar sarti saglarsa true en az bir eleman sarti saglamazsa false return eder.
-        //noneMatch() --> hic bir sarti SAGLAMAZSA true en az bir eleman sarti SAGLARSA false return eder.
+
     }
 
     // Task : List elelmmalarinin karakter sayisini 7 ve 7 'den az olma durumunu kontrol ediniz.
 
     public static void harfSayisi7denAzKontrol(List<String> menu) {
-//amele code
+
+        //amele code
         System.out.println("amele code");
-        boolean kontrol = menu.stream().allMatch(t -> t.length() <= 7);
+        boolean kontrol = menu.stream().allMatch(t -> t.length() <= 7);//  //elemanlarin hepeini eslestir,neye gore? uzunlugu 7'den kucuk olma durumuna gore
+        //boolean bir data type'na atadik cunku 7'den buyukse evet degilde hayir sonucu cikar
         if (kontrol) {
             System.out.println("list elemanları 7 ve daha az harften olusuyor");
         } else System.out.println("list elemanları 7 harften  buyuk");
-//cincix code
+
+        System.out.println(kontrol);
+
+        System.out.println("\n   ***   ");
+
+        //cincix code
         System.out.println("cincix code");
         System.out.println(menu.
                 stream().
                 allMatch(t -> t.length() <= 7) ? "list elemanları 7 ve daha az harften olusuyor" : "list elemanları 7 harften  buyuk");
+        //tum t'leri al 7 den kucuk olanlarla eslesenleri ilk cumle,omayanalri ikinci cumle ile yazdir
+
+
+        //anyMatch() --> en az bir eleman sarti saglarsa true aksi durumda false return eder
+        //allMatch() --> tum  elemanlar sarti saglarsa true en az bir eleman sarti saglamazsa false return eder.
+        //noneMatch() --> hic bir sarti SAGLAMAZSA true en az bir eleman sarti SAGLARSA false return eder.
     }
 
     // Task : List elelmanlarinin "W" ile baslamasını kontrol ediniz.
     public static void wIleBaslayanElmKnt(List<String> menu) {
         System.out.println(menu.
-                stream().noneMatch(t -> t.startsWith("w")) ? "agam w ile başlayan yemahh olu mu ?" :
+                stream().noneMatch(t -> t.startsWith("w")) ? " w ile baslayan yemek yok?" :
                 "agam  wenemen ne menen bi şey  ?");
 
     }
 
-    // Task : List elelmanlarinin "x" ile biten en az bir elemaı kontrol ediniz.
+    // Task : List elelmanlarinin "x" ile biten en az bir elemanini kontrol ediniz.
 
     public static void xIleBitenElKontrol(List<String> menu) {
         System.out.println(menu.
@@ -126,41 +137,61 @@ public class Lambda03 {
                 "agam senin aradigin yemek bu torpaklarda yooogggg");
 
 
-
-
     }
 
     // Task : Karakter sayisi en buyuk elemani yazdiriniz.
- public static void karakterSayisiEnBuyukElPrint(List<String> menu){
-   Stream<String> sonIsim=menu.
-
-                     stream().
-                     sorted(Comparator.comparing(t -> t.toString().length()).
-                     reversed()).
-             //findFirst());
-             limit(1);// akistan cikan elemanlari a parametresine gore ilk a elemani alir
-     System.out.println(Arrays.toString(sonIsim.toArray()));  //[havucDilim]
+    public static void karakterSayisiEnBuyukElPrint(List<String> menu) {
+       Stream < String> sonIsim=menu.stream().
+                sorted(Comparator.comparing(t -> t.toString().length()).
+                        reversed()).
+                // findFirst(); ilk eleman alindi
+                        limit(1);// akistan cikan ilk elemani alir
+        /*
+        sonIsim.toarray()--> limit() meth return'den dolayi stream sonIsim toArray() method ile array type convert edildi
+         */
+        System.out.println(Arrays.toString(sonIsim.toArray()));//[havucDilim]    //akisi array'e cevirdik ve array olarak yazdridik
      /*
-     sonIsim.toarray()--> Limit () methoreturn'dan dolayi stream typr olan sonIsim toArray() method ile array type convert edildi
-          */
+     Limit()  => Sinirlandirma demek .Bu akisin elemanlarindan olusan ,uzunlugu maxSize'den uzun olmayacak
+     sekilde kesilmis bir akis return eder Stream return eder yani akisi verir
+     akis ciktisini bir variable'a assign edebilir.
+     */
+        //Stream'lar ekrana direkt yazdirilamaz Stream'i toarray() ile array'e ceviriniz .
+        //Array'i de Arrays.toString()'in  icine alip yazdirabiliiz
+     //orn:  System.out.println(Arrays.toString(stream.toArray()));
+        // veya System.out.println(Arrays.asList(***.toArray()));kullaanilabilir
 
-     //limit(1) => Sınırlandırma demek. Bu akışın elemanlarından oluşan, uzunluğu maxSize'dan uzun olmayacak
-// şekilde kesilmiş bir akış return eder. Stream return eder
+
+        Optional<String> enBylEl = menu.
+                stream().
+                sorted(Comparator.comparing(t -> t.toString().length()).reversed()).
+                findFirst();
 
 
-     Optional<String> enBylEl= menu.
-             stream().
-             sorted(Comparator.comparing(t -> t.toString().length()).
-                     reversed()).findFirst();
-     System.out.println(enBylEl);
- }
+    }
+    //Task: List elemanlarini son harfine gore siralayip ilk eleman haric kalan elemanlari print ediniz
 
     // Task : list elemanlarini son harfine göre siralayıp ilk eleman hariç kalan elemanlari print ediniz.
-public static void ilkElHaricSonHarfeGoreSirali(List<String> menu){
-        menu.stream().sorted(Comparator.comparing(t-> t.charAt(t.length()-1))).skip(1).forEach(t-> System.out.print(t+ " "));//yaglama kokorec guvec kusleme trilece trilece trilece arabAsi havucDilim buryan
+    public static void ilkElHaricSonHarfeGoreSirali(List<String> menu) {
+        menu.stream().
+                sorted(Comparator.comparing(t -> t.charAt(t.length() - 1))).//t'ye gelenleri son harfine gore sirala
+                skip(1).//ilk elemani atla
+                forEach(t -> System.out.print(t + " "));//yaglama kokorec guvec kusleme trilece trilece trilece arabAsi havucDilim buryan
 
-//skip(1) => atlama demek. Akışın ilk n elemanını attıktan sonra bu akışın kalan elemanlarından oluşan bir akış return eder.
-// Bu akış n'den daha az öğe içeriyorsa, boş bir akış döndürülür. Bu, durum bilgisi olan bir ara işlemdir.
-//skip(list.size()-1) => List'in uzunluğunun 1 eksiğini yazarsak son elemanı yazdırırız.
+        /*
+        skip(1)==> atlama derken akisin ilk n elemanini attiktan sonra bu akisin kalan elemanlarindan olusan bir akis retrun eder.
+        Bu akis n'den daha az oge iceriyorsa bos bir akis dondurur bu dueum b ilgisi olan bir ara islemdir
+        skip(list.size()>>> List'in uzunlugunun 1 eksigini yazarsak son elemani yazdiririz
+                 */
+
+    }
+
+
+     /*
+  TRİCK :    Stream'ler ekrana direk yazdırılamaz. Stream'i toArray() ile Array'e çeviririz. Array'i de Arrays.toString() 'in içine alıp yazdırabiliriz.
+ Ör: System.out.println(Arrays.toString(***.toArray())); veya System.out.println(Arrays.asList(***.toArray())); kullanılabilir.
+
+   */
+
+
 }
-}
+
