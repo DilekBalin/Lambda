@@ -81,6 +81,7 @@ public class Lambda01 {
             }
             public static void yazdir(int a) {// verilen int degeri aynı satırda bosluk bırakarak yazdırma action yapan seed(tohum) method create edildi
                 System.out.print(a + " ");
+
             }
             public static void printElFunctional2(List<Integer> sayi) {
                 sayi.stream().forEach(Lambda01::yazdir);//method reference--> System.out yapısında prin methodu refere et
